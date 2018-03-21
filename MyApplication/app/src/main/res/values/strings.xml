@@ -1,15 +1,17 @@
 <resources>
-    <string name="app_name">婚姻建議</string>
-    <string name="txtSex">性別</string>
-    <string name="edtSexHint">男 / 女</string>
-    <string name="sex_male">男</string>
-    <string name="sex_female">女</string>
-    <string name="txtAge">年齡</string>
-    <string name="confirm">確定</string>
+    <string name="app_name">黃俊維</string>
+    <string name="txtSex">Sex</string>
+    <string name="edtSexHint">Male / Female</string>
+    <string name="sex_male">Male</string>
+    <string name="sex_female">Female</string>
+    <string name="txtAge">Age</string>
+    <string name="confirm">Confirm</string>
 
 
-    <string name="suggestion">建議: </string>
-    <string name="sug_not_hurry">還不急</string>
-    <string name="sug_get_married">趕快結婚</string>
-    <string name="sug_find_couple">開始找對象</string>
+    <string name="suggestion">Suggestion: </string>
+    <string name="sug_not_hurry">Not hurry</string>
+    <string name="sug_get_married">Get married</string>
+    <string name="sug_find_couple">Find a couple</string>
+
+    <string name="sug_input_sex_error">input sex error</string>
 </resources>
