@@ -42,7 +42,7 @@ public class GameStatistics extends Fragment {
         mEdtCountComWin = (EditText)getActivity().findViewById(R.id.edtCountComWin);
         mEdtCountDraw = (EditText)getActivity().findViewById(R.id.edtCountDraw);
 
-        mBtnBack = (Button) getActivity().findViewById(R.id.btnGameStatistics);
+        mBtnBack = (Button) getActivity().findViewById(R.id.btnBack);
         mBtnBack.setOnClickListener(btnBackOnClick);
 
         ((MainActivity) getActivity()).mGameResultType = MainFragment.GameResultType.TYPE_3;
@@ -70,7 +70,7 @@ public class GameStatistics extends Fragment {
     private View.OnClickListener btnBackOnClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            //((MainFragment.CallbackInterface) getActivity()).enableGameResult(MainFragment.GameResultType.HIDE);
+            ((MainFragment.CallbackInterface) getActivity()).enableGameResult(MainFragment.GameResultType.HIDE);
         }
     };
 }

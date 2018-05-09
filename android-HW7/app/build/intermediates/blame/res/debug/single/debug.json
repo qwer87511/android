@@ -28,12 +28,12 @@
         "source": "C:\\Users\\coffee\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-23.3.0.aar\\2abb2a7d5afc9b5bc59da4116dec0237\\res\\drawable\\abc_ratingbar_full_material.xml"
     },
     {
-        "merged": "C:\\Users\\coffee\\Documents\\android\\android-HW7\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4_abc_btn_rating_star_on_mtrl_alpha.png.flat",
-        "source": "C:\\Users\\coffee\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-23.3.0.aar\\2abb2a7d5afc9b5bc59da4116dec0237\\res\\drawable-hdpi-v4\\abc_btn_rating_star_on_mtrl_alpha.png"
-    },
-    {
         "merged": "C:\\Users\\coffee\\Documents\\android\\android-HW7\\app\\build\\intermediates\\res\\merged\\debug\\color_abc_secondary_text_material_light.xml.flat",
         "source": "C:\\Users\\coffee\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-23.3.0.aar\\2abb2a7d5afc9b5bc59da4116dec0237\\res\\color\\abc_secondary_text_material_light.xml"
+    },
+    {
+        "merged": "C:\\Users\\coffee\\Documents\\android\\android-HW7\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4_abc_btn_rating_star_on_mtrl_alpha.png.flat",
+        "source": "C:\\Users\\coffee\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-23.3.0.aar\\2abb2a7d5afc9b5bc59da4116dec0237\\res\\drawable-hdpi-v4\\abc_btn_rating_star_on_mtrl_alpha.png"
     },
     {
         "merged": "C:\\Users\\coffee\\Documents\\android\\android-HW7\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4_abc_btn_radio_to_on_mtrl_015.png.flat",
