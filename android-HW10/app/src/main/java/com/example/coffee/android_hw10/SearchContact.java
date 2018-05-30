@@ -90,6 +90,7 @@ public class SearchContact extends Fragment {
             else {
                 view.setBackgroundResource(R.color.colorWhite);
             }
+
             return view;
         }
     }

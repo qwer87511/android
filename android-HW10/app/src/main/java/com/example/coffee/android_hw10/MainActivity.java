@@ -16,7 +16,6 @@ import android.view.MenuItem;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.SearchView;
 import android.widget.Toast;
-
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
@@ -122,9 +121,25 @@ public class MainActivity extends AppCompatActivity {
     private SearchView.OnQueryTextListener searchViewOnQueryTextListener = new SearchView.OnQueryTextListener() {
         @Override
         public boolean onQueryTextSubmit(String query) {
-            if(query.equals(""))
-                return true;
 
+            // 沒有輸入資料
+            if(query.equals("")) {
+                Toast.makeText(MainActivity.this, "Please input name", Toast.LENGTH_LONG).show();
+                return true;
+            }
+
+            // 切換到Search頁面
+            if(mViewPager.getCurrentItem() != 1){
+                mViewPager.setCurrentItem(1);
+            }
+
+            // 關閉鍵盤
+            InputMethodManager inputMethodManager = ((InputMethodManager)getSystemService(INPUT_METHOD_SERVICE));
+            if(inputMethodManager != null) {
+                inputMethodManager.hideSoftInputFromWindow(Objects.requireNonNull(MainActivity.this.getCurrentFocus()).getWindowToken(),InputMethodManager.HIDE_NOT_ALWAYS);
+            }
+
+            // 從 SQL 查詢
             Cursor cursor = mFriendDB.query(true, DB_TABLE, new String[]{"name", "phoneNumber", "typeOfPhoneNumber"},
                     "name=\"" + query + "\"", null,null,null,null,null,null);
 
@@ -140,7 +155,6 @@ public class MainActivity extends AppCompatActivity {
                         "Phone Number: " + cursor.getString(1) + "\n" +
                         "Type Of Phone Number: " + cursor.getString(2);
                 searchContact.setHighlighter(data);
-                Toast.makeText(MainActivity.this, data, Toast.LENGTH_LONG).show();
             }
             return true;
         }
