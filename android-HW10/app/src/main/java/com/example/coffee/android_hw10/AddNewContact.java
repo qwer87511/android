@@ -2,8 +2,6 @@ package com.example.coffee.android_hw10;
 
 import android.app.Activity;
 import android.content.ContentValues;
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -14,7 +12,6 @@ import android.widget.Spinner;
 
 public class AddNewContact extends Fragment {
 
-    private View view;
     private Activity activity;
     private EditText mEdtName;
     private EditText mEdtPhoneNumber;
@@ -40,7 +37,7 @@ public class AddNewContact extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        view = getView();
+        View view = getView();
         activity = getActivity();
 
         mEdtName = (EditText) view.findViewById(R.id.edtName);
@@ -50,9 +47,10 @@ public class AddNewContact extends Fragment {
 
     public ContentValues getContentValues() {
         ContentValues contentValues = new ContentValues();
-        contentValues.put(activity.getString(R.string.name), mEdtName.getText().toString());
-        contentValues.put(activity.getString(R.string.phoneNumber), mEdtName.getText().toString());
-        contentValues.put(activity.getString(R.string.typeOfPhoneNumber), mSpnType.getSelectedItem().toString());
+        // 命名需和 sql 宣告時一樣
+        contentValues.put("name", mEdtName.getText().toString());
+        contentValues.put("phoneNumber", mEdtPhoneNumber.getText().toString());
+        contentValues.put("typeOfPhoneNumber", mSpnType.getSelectedItem().toString());
         return contentValues;
     }
 }

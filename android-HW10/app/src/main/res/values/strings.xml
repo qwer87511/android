@@ -3,7 +3,7 @@
 
     <string name="addNewContact">Add new contact</string>
     <string name="searchContact">Search contact</string>
-    
+
     <string name="name">Name</string>
     <string name="phoneNumber">Phone number</string>
     <string name="typeOfPhoneNumber">Type of phone number</string>
@@ -13,6 +13,7 @@
         <item>office</item>
     </string-array>
 
+    <string name="searchBarHint">Searching a contact</string>
     <string name="addingANewContact">Adding a new contact</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
