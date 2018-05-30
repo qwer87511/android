@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
@@ -19,6 +20,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Formatter;
+import java.util.zip.Inflater;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -63,12 +65,15 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        SubMenu subMenu = menu.addSubMenu(0, MENU_MUSIC, 0, R.string.backgroundMusic)
+        super.onCreateOptionsMenu(menu);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+        /*SubMenu subMenu = menu.addSubMenu(0, MENU_MUSIC, 0, R.string.backgroundMusic)
                 .setIcon(android.R.drawable.ic_media_ff);
         subMenu.add(0, MENU_PLAY_MUSIC, 0, R.string.playBackgroundMusic);
         subMenu.add(0, MENU_STOP_MUSIC, 1, R.string.stopBackgroundMusic);
         menu.add(0, MENU_ABOUT, 1, R.string.about);
-        menu.add(0, MENU_EXIT, 2, R.string.exit);
+        menu.add(0, MENU_EXIT, 2, R.string.exit);*/
         return true;
     }
 
@@ -76,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case MENU_PLAY_MUSIC:
-                Intent intent = new Intent(MainActivity.this, MediaPlayService.class);
+                Intent intent = new Intent(this, MediaPlayService.class);
                 startService(intent);
                 return true;
             case MENU_STOP_MUSIC:
