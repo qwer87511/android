@@ -16,6 +16,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <provider
+            android:name=".ContactContentProvider"
+            android:authorities="com.example.ContactContentProvider" />
     </application>
 
 </manifest>

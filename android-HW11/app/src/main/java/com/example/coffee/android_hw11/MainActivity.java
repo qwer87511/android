@@ -1,9 +1,8 @@
 package com.example.coffee.android_hw11;
 
+import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -12,20 +11,21 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.SearchView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static final String DB_FILE = "contact.db", DB_TABLE = "contact";
-    public static SQLiteDatabase mFriendDB;
+    public static ContentResolver mContentResolver;
+
     private TabLayout mTabLayout;
     private AddNewContact addNewContact;
     private SearchContact searchContact;
@@ -49,21 +49,7 @@ public class MainActivity extends AppCompatActivity {
         addNewContact = new AddNewContact();
         searchContact = new SearchContact();
 
-        FriendDbOpenHelper friendDbOpenHelper = new FriendDbOpenHelper(getApplicationContext(), DB_FILE, null, 1);
-        mFriendDB = friendDbOpenHelper.getWritableDatabase();
-        Cursor cursor = mFriendDB.rawQuery("select DISTINCT tbl_name from sqlite_master where tbl_name = '" + DB_TABLE + "'", null);
-
-        if(cursor != null) {
-            if (cursor.getCount() == 0) {
-                // TEXT 命名須和 ContentValue 一樣
-                mFriendDB.execSQL("CREATE TABLE " + DB_TABLE + " (" +
-                        "_id INTEGER PRIMARY KEY," +
-                        "name TEXT NOT NULL," +
-                        "phoneNumber TEXT," +
-                        "typeOfPhoneNumber TEXT);");
-            }
-            cursor.close();
-        }
+        mContentResolver = getContentResolver();
     }
 
     @Override
@@ -82,10 +68,10 @@ public class MainActivity extends AppCompatActivity {
         switch (menuItem.getItemId()) {
             case R.id.menuItemAdd:
                 ContentValues data = addNewContact.getContentValues();
-                mFriendDB.insert(DB_TABLE, null, data);
-                searchContact.addContact( "Name: " + data.getAsString("name") + "\n" +
-                        "Phone Number: " + data.getAsString("phoneNumber") + "\n" +
-                        "Type Of Phone Number: " + data.getAsString("typeOfPhoneNumber"));
+                if (data.getAsString("name").equals(""))
+                    return true;
+                mContentResolver.insert(ContactContentProvider.CONTENT_URI, data);
+                searchContact.addContact(data);
                 Toast.makeText(MainActivity.this, "新增聯絡人成功", Toast.LENGTH_SHORT).show();
                 return true;
             default:
@@ -94,9 +80,25 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        mFriendDB.close();
+    public boolean onContextItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menuItemModify:
+                // 將資料傳進 AddNewContact 中 並切換頁面
+                addNewContact.setContentValues(searchContact.getLongClickedItem());
+                mViewPager.setCurrentItem(0);
+                //searchContact.deleteLongClickedItem();
+                //mContentResolver.delete(ContactContentProvider.CONTENT_URI, "name = " + searchContact.getLongClickedItem().getAsString("name"), null);
+                Toast.makeText(MainActivity.this, "請重新提交此聯絡人資料", Toast.LENGTH_LONG).show();
+                break;
+            case R.id.menuItemDelete:
+                mContentResolver.delete(ContactContentProvider.CONTENT_URI, "name = " + searchContact.getLongClickedItem().getAsString("name"), null);
+                searchContact.deleteLongClickedItem();
+                Toast.makeText(MainActivity.this, "刪除聯絡人成功", Toast.LENGTH_SHORT).show();
+                break;
+            default:
+                break;
+        }
+        return super.onContextItemSelected(item);
     }
 
     private TabLayout.OnTabSelectedListener tabSelectedListener = new TabLayout.OnTabSelectedListener() {
@@ -144,8 +146,8 @@ public class MainActivity extends AppCompatActivity {
             }
 
             // 從 SQL 查詢
-            Cursor cursor = mFriendDB.query(true, DB_TABLE, new String[]{"name", "phoneNumber", "typeOfPhoneNumber"},
-                    "name=\"" + query + "\"", null,null,null,null,null,null);
+            Cursor cursor = mContentResolver.query(ContactContentProvider.CONTENT_URI, new String[]{"name", "phoneNumber", "typeOfPhoneNumber"},
+                    "name=\"" + query + "\"", null, null);
 
             if(cursor == null)
                 return true;
@@ -160,6 +162,7 @@ public class MainActivity extends AppCompatActivity {
                         "Type Of Phone Number: " + cursor.getString(2);
                 searchContact.setHighlighter(data);
             }
+            cursor.close();
             return true;
         }
 

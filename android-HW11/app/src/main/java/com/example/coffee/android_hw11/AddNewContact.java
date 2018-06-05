@@ -10,6 +10,9 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class AddNewContact extends Fragment {
 
     private Activity activity;
@@ -52,5 +55,12 @@ public class AddNewContact extends Fragment {
         contentValues.put("phoneNumber", mEdtPhoneNumber.getText().toString());
         contentValues.put("typeOfPhoneNumber", mSpnType.getSelectedItem().toString());
         return contentValues;
+    }
+
+    public void setContentValues(ContentValues contentValues) {
+        mEdtName.setText(contentValues.getAsString("name"));
+        mEdtPhoneNumber.setText(contentValues.getAsString("phoneNumber"));
+        mSpnType.setSelection(new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.phoneNumberType)))
+                .indexOf(contentValues.getAsString("typeOfPhoneNumber")));
     }
 }

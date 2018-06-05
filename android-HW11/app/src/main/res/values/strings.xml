@@ -16,5 +16,8 @@
     <string name="searchBarHint">Searching a contact</string>
     <string name="addingANewContact">Adding a new contact</string>
 
+    <string name="modify">modify</string>
+    <string name="delete">delete</string>
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
